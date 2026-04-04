@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "type": "normal",
+    "input": "Employees must not input confidential company data into publicly available AI tools such as ChatGPT. All AI tool usage must be logged via the IT portal. Violations may result in disciplinary action.",
+    "expected_behavior": "Should produce clear, non-threatening summaries for each audience. Employee version should be simple and direct. Executive version should note risk/compliance implications."
+  },
+  {
+    "id": 2,
+    "type": "edge_case",
+    "input": "AI systems used in hiring decisions must comply with EEOC guidelines and undergo bias audits quarterly.",
+    "expected_behavior": "Should not oversimplify legal language. Manager version should flag that human review is required. Model may struggle with legal nuance."
+  },
+  {
+    "id": 3,
+    "type": "likely_to_fail",
+    "input": "Per Section 4.2(b) of the Enterprise AI Governance Framework v3.1, all generative AI outputs used in customer-facing communications require sign-off from the AI Ethics Review Board within 48 hours of deployment, subject to amendment under the Digital Services Act Article 28.",
+    "expected_behavior": "Model likely to hallucinate or drop legal references. Should flag for human legal review. Executive summary must not omit the 48-hour deadline."
+  },
+  {
+    "id": 4,
+    "type": "normal",
+    "input": "AI tools may be used to assist with drafting internal reports. Final reports must be reviewed and approved by a human before distribution.",
+    "expected_behavior": "Clean, easy case. All three summaries should be accurate. Good baseline for prompt comparison."
+  },
+  {
+    "id": 5,
+    "type": "edge_case",
+    "input": "",
+    "expected_behavior": "Empty input. System should return a graceful error, not crash or hallucinate a policy."
+  }
+]
