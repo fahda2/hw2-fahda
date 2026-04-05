@@ -27,7 +27,7 @@ If the input is empty or unclear, respond with: ERROR: Input is empty or unreada
 
 ---
 
-## Revision 1
+## Revision #1
 
 **What changed:** Added explicit instruction to make employee version action-oriented (not passive), and told the model to keep executive versions jargon-free and under 2 sentences with a clear risk call-out.
 
@@ -53,7 +53,7 @@ If the input is empty or unclear, respond with: ERROR: Input is empty or unreada
 
 ---
 
-## Revision 2
+## Revision #2
 
 **What changed:** Added bullet point format to manager version for scannability. Relaxed executive version to allow 2-3 sentences but required it to always name a specific consequence (fine, lawsuit, breach, etc.), not vague risks.
 
@@ -78,4 +78,4 @@ If the input is empty or unclear, respond with: ERROR: Input is empty or unreada
 
 **What improved:** Manager summaries became much easier to scan, each bullet is one clear action. Executive versions now name concrete risks instead of abstract phrases like "reputational damage." The legal flag instruction helped Case 3 (the complex DSA reference) surface that human review was needed.
 
-**What stayed the same:** Employee versions were already solid after Revision 1 and remained consistent. Empty input handling worked correctly throughout all versions.
+**What stayed the same:** Employee versions were already solid after Revision 1 and remained consistent. Empty input handling worked correctly throughout all versions
