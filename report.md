@@ -1,0 +1,23 @@
+# Report: AI Policy Communicator
+
+## Business Use Case
+
+The workflow I built takes raw AI governance policy text and turns it into three role specific summaries, one for frontline employees, one for managers, and one for executives. The problem I was trying to solve is a real one where most companies write AI policies that end up sitting in a PDF nobody reads. Legal teams write for legal teams, and the people who actually need to follow the policy, the employees, the managers making daily decisions, are left with language they can't act on. This tool bridges that gap by translating the same policy into three different tones and levels of detail depending on who needs to read it. To me, that's genuinely valuable because as AI governance regulations keep tightening globally, companies can't afford to have employees shrugging at a policy document they don't understand.
+
+## Model Choice
+
+I ran into a frustrating issue getting this off the ground. I started with Gemini through Google AI Studio because it was supposed to be free, but when I generated my API key and ran the script, it returned a quota error with `limit: 0` on literally the first request. I tried switching models like `gemini-2.0-flash`, `gemini-2.0-flash-lite` and the same error came back every time I created a new key. The key itself had no free tier quota at all, which wasn't obvious from the setup process. I then tried OpenAI and ran into similar issues with the free tier not being enough to even test. At that point I decided to just pay the $5 and use the Claude API with `claude-haiku-4-5`, which is Anthropic's fastest and cheapest model. It turned out to be the right call as Haiku is quick, the outputs were consistently structured, and for a summarization task like this, you don't need the most powerful model. The quality was solid without burning through credits fast.
+
+## Baseline vs. Final Design
+
+The initial prompt was functional but had some real issues when I looked at the outputs closely. The employee version for Case 2 (the hiring bias case) came back with "You don't need to take action on this" which is passive and not useful where an employee reading that learns nothing. The executive summaries were also too wordy and full of phrases like "operationalize ethical AI governance" and "erosion of institutional trust," which sounds impressive but doesn't tell an executive anything concrete. Manager summaries were long paragraphs that were hard to skim.
+
+In Revision 1, I added an explicit instruction to start employee summaries with a clear action ("Do this" / "Don't do that") and told the model to keep executive summaries to exactly 2 sentences with no jargon. That improved both significantly. In Revision 2, I switched manager summaries to bullet points so each bullet is one concrete responsibility, and I required executive summaries to name a specific risk, not "reputational damage" but something like a fine, a lawsuit, or a data breach. I also added a flag for when legal review is recommended. The final outputs were noticeably more actionable and easier to read across the board.
+
+## Where It Still Fails
+
+The prototype still struggles with Case 3, the complex legal input that references a specific framework version and the Digital Services Act. The model handles the 48-hour deadline correctly, but it doesn't always surface the legal reference numbers or flag that the framing might have changed due to regulatory amendments. For any policy that has real legal weight behind it, I wouldn't trust this output without a human legal reviewer going over it. The model does what it's told format wise, but it doesn't know what it doesn't know, and with something like compliance law that's a real gap. The empty input case (Case 5) worked perfectly every time, which was good to see.
+
+## Deployment Recommendation
+
+I would recommend deploying this workflow, but only under specific conditions. It works well as a first pass drafting tool — something that saves an HR team or compliance officer the time of writing three versions of the same message from scratch. The outputs are consistent, clearly structured, and genuinely easier to read than the original policy language. But I would not deploy it without a human review step before anything goes out, especially for policies with legal or regulatory implications. The model can miss nuance, drop references, or oversimplify something that actually needs precision. Used as a draft generator with human sign off, this is a useful tool. Used as a final publisher with no review, it's a liability. The line I'd draw is automate the first draft, never automate the final approval.
